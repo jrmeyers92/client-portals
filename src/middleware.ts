@@ -72,9 +72,11 @@ export default clerkMiddleware(async (auth, req) => {
 
       if (
         role === "businessOwner" &&
-        !path.startsWith("/onboarding/business")
+        !path.startsWith("/onboarding/organization")
       ) {
-        return NextResponse.redirect(new URL("/onboarding/business", req.url));
+        return NextResponse.redirect(
+          new URL("/onboarding/organization", req.url)
+        );
       }
     }
 

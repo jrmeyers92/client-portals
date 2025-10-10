@@ -11,7 +11,7 @@ const RoleSelectionForm = () => {
   const { session } = useSession();
   const router = useRouter();
 
-  const handleSubmit = async (role: "user" | "businessOwner") => {
+  const handleSubmit = async (role: "user" | "organizationOwner") => {
     setIsSubmitting(true);
 
     const formData = new FormData();
@@ -21,8 +21,8 @@ const RoleSelectionForm = () => {
     await session?.reload();
 
     if (userRole.success) {
-      if (userRole.data?.role == "businessOwner") {
-        router.push("onboarding/business");
+      if (userRole.data?.role == "organizationOwner") {
+        router.push("/onboarding/organization"); // Added leading slash
       } else if (userRole.data?.role == "user") {
         router.push("/");
       }
@@ -48,11 +48,11 @@ const RoleSelectionForm = () => {
       </button>
 
       <button
-        onClick={() => handleSubmit("businessOwner")}
+        onClick={() => handleSubmit("organizationOwner")}
         disabled={isSubmitting}
         className="py-3 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
       >
-        I'm a business owner wanting to sign up
+        I'm a organization owner wanting to sign up
       </button>
     </div>
   );

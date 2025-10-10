@@ -22,6 +22,10 @@ export type RoleSelectionResponse = ServerActionResponse<{
   role: string;
 }>;
 
+export type BusinessOnboardingResponse = ServerActionResponse<{
+  businessId?: string;
+}>;
+
 // Type guard functions
 export function isServerActionError(
   response: ServerActionResponse

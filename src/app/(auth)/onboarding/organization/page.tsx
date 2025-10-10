@@ -1,4 +1,4 @@
-import BusinessOnboardingForm from "@/components/forms/BusinessOnboardingForm";
+import BusinessOnboardingForm from "@/components/forms/OrganizationOnboardingForm";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -12,13 +12,13 @@ export default async function BusinessOnboardingPage() {
   const onboardingComplete = user.sessionClaims?.metadata.onboardingComplete;
 
   // Check if user has the correct role
-  if (role !== "businessOwner") {
+  if (role !== "organizationOwner") {
     redirect("/onboarding/role-selection");
   }
 
   // Check if user has already completed onboarding
   if (onboardingComplete === true) {
-    redirect("/business-dashboard");
+    redirect("/organization-dashboard");
   }
 
   return (

@@ -8,18 +8,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SignedIn, SignedOut, SignOutButton, UserButton } from "@clerk/nextjs";
-import { Gem, Heart, Home, Menu, Search } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
+import { Gem, Home, Menu } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 import { buttonVariants } from "./ui/button";
 
-const Nav = () => {
+const Nav = async () => {
+  const { userId } = await auth();
+
   return (
     <nav className="border-b sticky top-0 z-50 w-full backdrop-blur py-3 px-4">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Logo and Brand Name */}
         <Link
-          href="/"
+          href={userId ? "/dashboard" : "/"}
           className="flex gap-2 items-center text-xl font-bold justify-center"
         >
           <Gem className="text-primary" size={28} />
@@ -30,17 +33,7 @@ const Nav = () => {
         <div className="hidden md:flex items-center gap-6">
           {/* Auth Buttons */}
           <SignedIn>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/favorites"
-                className={buttonVariants({ variant: "ghost", size: "icon" })}
-                title="Favorites"
-              >
-                <Heart size={20} />
-              </Link>
-
-              <UserButton afterSignOutUrl="/" />
-            </div>
+            <UserButton />
           </SignedIn>
 
           <SignedOut>
@@ -60,22 +53,6 @@ const Nav = () => {
 
         {/* Mobile Navigation */}
         <div className="md:hidden flex items-center gap-2">
-          <Link
-            href="/search"
-            className={buttonVariants({ variant: "ghost", size: "icon" })}
-          >
-            <Search size={20} />
-          </Link>
-
-          <SignedIn>
-            <Link
-              href="/favorites"
-              className={buttonVariants({ variant: "ghost", size: "icon" })}
-            >
-              <Heart size={20} />
-            </Link>
-          </SignedIn>
-
           <Sheet>
             <SheetTrigger
               className={buttonVariants({ variant: "outline", size: "icon" })}
@@ -84,10 +61,8 @@ const Nav = () => {
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>STL Wedding Hub</SheetTitle>
-                <SheetDescription>
-                  Find wedding professionals in St. Louis
-                </SheetDescription>
+                <SheetTitle>App Name</SheetTitle>
+                <SheetDescription>App Description</SheetDescription>
               </SheetHeader>
               <div className="flex flex-col gap-4 py-4">
                 <SheetClose asChild>

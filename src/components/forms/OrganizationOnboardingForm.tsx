@@ -127,7 +127,7 @@ export default function OrganizationOnboardingForm() {
 
           // Force a hard navigation to refresh the session
           await session?.reload();
-          router.push("/dashboard");
+          router.push("/plan-selection");
         } else {
           // Show error toast for server errors
           toast.error("Setup failed", {

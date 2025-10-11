@@ -71,7 +71,7 @@ export default clerkMiddleware(async (auth, req) => {
       }
 
       if (
-        role === "businessOwner" &&
+        role === "organizationOwner" &&
         !path.startsWith("/onboarding/organization")
       ) {
         return NextResponse.redirect(
@@ -80,10 +80,10 @@ export default clerkMiddleware(async (auth, req) => {
       }
     }
 
-    // Protect businessOwner-only routes
+    // Protect organizationOwner-only routes
     if (
       path.startsWith("/business-dashboard") &&
-      role !== "businessOwner" &&
+      role !== "organizationOwner" &&
       role !== "admin"
     ) {
       return NextResponse.redirect(new URL("/", req.url));

@@ -10,7 +10,7 @@ const page = async () => {
   const role = user.sessionClaims?.metadata.role;
   if (role == "user" && user.sessionClaims?.metadata.onboardingComplete) {
     redirect("/");
-  } else if (role == "businessOwner") {
+  } else if (role == "organizationOwner") {
     redirect("/onboarding/business");
   } else if (role == "admin") {
     redirect("/admin");

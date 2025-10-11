@@ -18,7 +18,7 @@ export default async function BusinessOnboardingPage() {
 
   // Check if user has already completed onboarding
   if (onboardingComplete === true) {
-    redirect("/organization-dashboard");
+    redirect("/org-dashboard");
   }
 
   return (

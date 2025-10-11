@@ -106,7 +106,6 @@ export const organizationOnboardingDBSchema = z.object({
 });
 
 // Type for the form input values
-// Type for the form input values
 export type OrganizationOnboardingValues = z.infer<
   typeof organizationOnboardingFormSchema
 >;

@@ -7,7 +7,7 @@ export default function PricingPage() {
     <div className="container mx-auto my-12">
       <Link
         className={cn(buttonVariants({ size: "lg" }), "my-4 ")}
-        href="/dashboard"
+        href="/org-dashboard"
       >
         Continue to Dashboard
       </Link>

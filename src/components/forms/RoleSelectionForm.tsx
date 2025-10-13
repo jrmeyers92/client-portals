@@ -44,7 +44,7 @@ const RoleSelectionForm = () => {
         disabled={isSubmitting}
         className="py-3 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
       >
-        I'm a customer wanting to access my documents
+        I&apos;m a customer wanting to access my documents
       </button>
 
       <button
@@ -52,7 +52,7 @@ const RoleSelectionForm = () => {
         disabled={isSubmitting}
         className="py-3 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
       >
-        I'm a organization owner wanting to sign up
+        I&apos;m a organization owner wanting to sign up
       </button>
     </div>
   );

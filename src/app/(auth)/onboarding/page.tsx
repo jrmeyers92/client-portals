@@ -1,4 +1,4 @@
-import OnboardingForm from "@/components/forms/OnboardingForm";
+import OrganizationOnboardingForm from "@/components/forms/OrganizationOnboardingForm";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -17,7 +17,7 @@ const page = async () => {
 
   return (
     <div>
-      <OnboardingForm />
+      <OrganizationOnboardingForm />
     </div>
   );
 };

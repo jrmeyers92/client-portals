@@ -12,12 +12,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { resizeImage } from "@/lib/resizeImage";
 import {
   OrganizationOnboardingValues,
   generateSlug,
   organizationOnboardingFormSchema,
 } from "@/schemas/organizationSchema";
-import { resizeImage } from "@/utils/resizeImage";
 import { useAuth, useSession } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Upload, X } from "lucide-react";

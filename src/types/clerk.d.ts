@@ -5,6 +5,7 @@ declare global {
     metadata: {
       onboardingComplete?: boolean;
       role?: Roles;
+      organizationId?: string; // Add this line
     };
   }
 }

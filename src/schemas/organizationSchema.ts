@@ -1,34 +1,5 @@
 import { z } from "zod";
 
-export default interface Organization {
-  id: string;
-  name: string;
-  slug: string;
-  logo_url?: string;
-  primary_color: string;
-  secondary_color: string;
-  owner_clerk_id: string;
-  owner_email: string;
-  owner_name?: string;
-  stripe_customer_id?: string;
-  subscription_tier: "trial" | "starter" | "professional" | "agency";
-  subscription_status:
-    | "trialing"
-    | "active"
-    | "past_due"
-    | "canceled"
-    | "paused";
-  trial_ends_at?: string;
-  custom_domain?: string;
-  email_from_name?: string;
-  storage_used_bytes: number;
-  storage_limit_bytes: number;
-  onboarding_completed: boolean;
-  onboarding_step: number;
-  created_at: string;
-  updated_at: string;
-}
-
 // For client-side file validation (not part of the Zod schema)
 export const validateImageFile = (file: File | null | undefined) => {
   if (!file) return true;
@@ -39,6 +10,7 @@ export const validateImageFile = (file: File | null | undefined) => {
   return validTypes.includes(file.type);
 };
 
+// Form input schema (includes File objects for client-side handling)
 // Form input schema (includes File objects for client-side handling)
 export const organizationOnboardingFormSchema = z.object({
   clerkId: z.string(),
@@ -55,12 +27,10 @@ export const organizationOnboardingFormSchema = z.object({
   ownerName: z.string().min(2, "Owner name is required").optional(),
   primaryColor: z
     .string()
-    .regex(/^#[0-9A-Fa-f]{6}$/, "Must be a valid hex color")
-    .default("#6366f1"),
+    .regex(/^#[0-9A-Fa-f]{6}$/, "Must be a valid hex color"),
   secondaryColor: z
     .string()
-    .regex(/^#[0-9A-Fa-f]{6}$/, "Must be a valid hex color")
-    .default("#8b5cf6"),
+    .regex(/^#[0-9A-Fa-f]{6}$/, "Must be a valid hex color"),
   emailFromName: z.string().min(2, "Email from name is required").optional(),
   // For file inputs, we keep the File type for client-side validation
   logoImage: z.instanceof(File).optional().nullable(),

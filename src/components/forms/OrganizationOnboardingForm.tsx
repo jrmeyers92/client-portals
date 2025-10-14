@@ -269,6 +269,7 @@ export default function OrganizationOnboardingForm() {
                         </div>
                       ) : logoPreview ? (
                         <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={logoPreview}
                             alt="Logo preview"
@@ -449,6 +450,7 @@ export default function OrganizationOnboardingForm() {
         <h3 className="text-sm font-medium mb-3">Preview</h3>
         <div className="flex items-center gap-3">
           {logoPreview && (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={logoPreview}
               alt="Logo preview"

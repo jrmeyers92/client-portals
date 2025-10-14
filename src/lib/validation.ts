@@ -12,10 +12,10 @@ export const errorMessages = {
 };
 
 // Create a standardized error response
-export function createErrorResponse(
+export function createErrorResponse<T = unknown>(
   error: string,
-  details?: any
-): { success: false; error: string; details?: any } {
+  details?: T
+): { success: false; error: string; details?: T } {
   return {
     success: false as const,
     error,
@@ -24,10 +24,10 @@ export function createErrorResponse(
 }
 
 // Create a standardized success response
-export function createSuccessResponse(
+export function createSuccessResponse<T = unknown>(
   message: string,
-  data?: any
-): { success: true; message: string; data?: any } {
+  data?: T
+): { success: true; message: string; data?: T } {
   return {
     success: true as const,
     message,

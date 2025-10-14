@@ -28,7 +28,7 @@ import { z } from "zod";
 
 // Define return types at the top
 type OrganizationOnboardingResponse =
-  | { success: false; error: string; details?: any }
+  | { success: false; error: string; details?: unknown }
   | {
       success: true;
       message: string;
@@ -36,7 +36,7 @@ type OrganizationOnboardingResponse =
     };
 
 type RoleSelectionResponse =
-  | { success: false; error: string; details?: any }
+  | { success: false; error: string; details?: unknown }
   | { success: true; message: string; data?: { role: string } };
 
 export async function completeOrganizationOnboarding(

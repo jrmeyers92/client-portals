@@ -11,7 +11,7 @@ export default function PricingPage() {
       >
         Continue to Dashboard
       </Link>
-      <PricingTable />
+      <PricingTable newSubscriptionRedirectUrl="/dashboard" />
     </div>
   );
 }

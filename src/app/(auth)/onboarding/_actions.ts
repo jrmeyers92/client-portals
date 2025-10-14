@@ -11,6 +11,7 @@ import {
 } from "@/lib/organizations/queries";
 
 import { createOrganization } from "@/lib/organizations/mutations";
+import { createAdminClient } from "@/lib/supabase/clients/admin";
 import { createClient } from "@/lib/supabase/clients/server";
 import { cleanupFiles, uploadFile } from "@/lib/supabase/storage";
 import {
@@ -64,7 +65,7 @@ export async function completeOrganizationOnboarding(
       return createErrorResponse(errorMessages.AUTHENTICATION_REQUIRED);
     }
 
-    const supabase = await createClient();
+    const supabase = await createAdminClient();
 
     // 3. Check if organization already exists
     const existingOrg = await getOrganizationByOwner(supabase, userId);

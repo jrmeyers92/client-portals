@@ -1,39 +1,5 @@
 import { z } from "zod";
 
-export default interface Client {
-  id: string;
-  organization_id: string; // The agency that owns this client
-  company_name: string;
-  email: string; // Primary contact email
-  phone?: string;
-  website?: string;
-  logo_url?: string;
-  status: "active" | "inactive" | "archived";
-
-  // Address information
-  address?: {
-    street?: string;
-    city?: string;
-    state?: string;
-    postal_code?: string;
-    country?: string;
-  };
-
-  // Metadata
-  notes?: string;
-  tags?: string[];
-  custom_fields?: Record<
-    string,
-    string | number | boolean | null | string[] | number[]
-  >;
-
-  // Tracking
-  created_by: string; // Agency user who created this client
-  updated_by?: string;
-  created_at: string;
-  updated_at: string;
-}
-
 // Client-side file validation for logo
 export const validateLogoFile = (file: File | null | undefined) => {
   if (!file) return true;
@@ -143,14 +109,4 @@ export const getCompanyInitials = (companyName: string): string => {
     .join("")
     .toUpperCase()
     .slice(0, 2);
-};
-
-// Utility to get client status badge info
-export const getClientStatusBadge = (status: Client["status"]) => {
-  const badges = {
-    active: { label: "Active", color: "green" },
-    inactive: { label: "Inactive", color: "yellow" },
-    archived: { label: "Archived", color: "gray" },
-  };
-  return badges[status];
 };

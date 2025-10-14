@@ -13,6 +13,10 @@ const isPublicRoute = createRouteMatcher([
 // Define API routes that need protection
 const isProtectedApiRoute = createRouteMatcher([
   "/api/protected(.*)",
+  "/dashboard",
+  "/onboarding",
+  "/create-customer",
+  "/create-project",
   // Add other protected API routes
 ]);
 

@@ -1,46 +1,7 @@
+import { Tables } from "@/types/database.types";
 import { z } from "zod";
 
-export default interface ClientUser {
-  id: string;
-  client_id: string; // Foreign key to Client
-  organization_id: string; // For RLS policies - the agency that owns this
-
-  // User details
-  name: string;
-  email: string;
-  phone?: string;
-  avatar_url?: string;
-  job_title?: string;
-
-  // Portal access
-  role: "admin" | "member" | "viewer"; // Permissions within their client's portal
-  portal_access_enabled: boolean;
-  portal_last_accessed_at?: string;
-
-  // Invitation flow
-  invite_sent_at?: string;
-  invite_accepted_at?: string;
-  invite_token?: string;
-
-  // Auth integration (Clerk or similar)
-  auth_user_id?: string; // External auth provider ID
-
-  // Notification preferences
-  email_notifications_enabled: boolean;
-  notification_preferences?: {
-    project_updates: boolean;
-    new_files: boolean;
-    comments: boolean;
-    mentions: boolean;
-  };
-
-  // Tracking
-  created_by: string; // Agency user who created this portal user
-  updated_by?: string;
-  created_at: string;
-  updated_at: string;
-  last_login_at?: string;
-}
+type ClientUser = Tables<"portals_client_users">;
 
 // Client-side file validation for avatar
 export const validateAvatarFile = (file: File | null | undefined) => {

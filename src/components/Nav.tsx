@@ -7,6 +7,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { getOrganization } from "@/lib/data/getOrganization";
 import { SignedIn, SignedOut, SignOutButton, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { Gem, Home, Menu } from "lucide-react";
@@ -16,6 +17,7 @@ import { buttonVariants } from "./ui/button";
 
 const Nav = async () => {
   const { userId } = await auth();
+  const organiztion = await getOrganization();
 
   return (
     <nav className="border-b sticky top-0 z-50 w-full backdrop-blur py-3 px-4">
@@ -25,8 +27,12 @@ const Nav = async () => {
           href={userId ? "/dashboard" : "/"}
           className="flex gap-2 items-center text-xl font-bold justify-center"
         >
-          <Gem className="text-primary" size={28} />
-          <span>APP NAME</span>
+          {organiztion?.logo_url && (
+            <img src={organiztion.logo_url} alt="logo" className="w-16" />
+          )}
+          <span style={{ color: organiztion?.primary_color || "black" }}>
+            {organiztion ? organiztion.name : "Client Portals"}
+          </span>{" "}
         </Link>
 
         {/* Desktop Navigation */}

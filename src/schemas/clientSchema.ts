@@ -32,7 +32,7 @@ export const clientFormSchema = z.object({
     .optional()
     .nullable()
     .or(z.literal("")),
-  status: z.enum(["active", "inactive", "archived"]).default("active"),
+  status: z.enum(["active", "inactive", "archived"]), // Remove .default()
 
   // Address
   address: z

@@ -1,6 +1,7 @@
 "use client";
 
 import { completeOrganizationOnboarding } from "@/app/(auth)/onboarding/_actions";
+import { FormColor, FormInput } from "@/components/FormComponents";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,7 +23,7 @@ import { useAuth, useSession } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Upload, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -59,11 +60,11 @@ export default function OrganizationOnboardingForm() {
 
   // Auto-generate slug from organization name
   const organizationName = form.watch("organizationName");
-  useState(() => {
+  useEffect(() => {
     if (organizationName && !form.formState.dirtyFields.slug) {
       form.setValue("slug", generateSlug(organizationName));
     }
-  });
+  }, [organizationName, form]);
 
   // Handle logo image selection with preview and resizing
   const handleLogoChange = async (
@@ -166,24 +167,15 @@ export default function OrganizationOnboardingForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {/* Organization Name */}
-          <FormField
+          <FormInput
             control={form.control}
             name="organizationName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Organization Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Acme Design Agency" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is how your agency will appear to clients.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Organization Name"
+            placeholder="Acme Design Agency"
+            description="This is how your agency will appear to clients."
           />
 
-          {/* Slug */}
+          {/* Slug - Custom field with prefix/suffix */}
           <FormField
             control={form.control}
             name="slug"
@@ -214,36 +206,23 @@ export default function OrganizationOnboardingForm() {
 
           {/* Owner Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField
+            <FormInput
               control={form.control}
               name="ownerName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Your Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Your Name"
+              placeholder="John Doe"
             />
 
-            <FormField
+            <FormInput
               control={form.control}
               name="ownerEmail"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Your Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="john@acme.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Your Email"
+              type="email"
+              placeholder="john@acme.com"
             />
           </div>
 
-          {/* Logo Upload */}
+          {/* Logo Upload - Custom field */}
           <FormField
             control={form.control}
             name="logoImage"
@@ -346,87 +325,29 @@ export default function OrganizationOnboardingForm() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
+              <FormColor
                 control={form.control}
                 name="primaryColor"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Primary Color</FormLabel>
-                    <div className="flex items-center gap-3">
-                      <FormControl>
-                        <Input
-                          type="color"
-                          {...field}
-                          className="w-16 h-10 cursor-pointer"
-                        />
-                      </FormControl>
-                      <FormControl>
-                        <Input
-                          type="text"
-                          {...field}
-                          placeholder="#6366f1"
-                          className="flex-1 font-mono"
-                        />
-                      </FormControl>
-                    </div>
-                    <FormDescription>
-                      Used for headers, buttons, and key elements
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Primary Color"
+                description="Used for headers, buttons, and key elements"
               />
 
-              <FormField
+              <FormColor
                 control={form.control}
                 name="secondaryColor"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Secondary Color</FormLabel>
-                    <div className="flex items-center gap-3">
-                      <FormControl>
-                        <Input
-                          type="color"
-                          {...field}
-                          className="w-16 h-10 cursor-pointer"
-                        />
-                      </FormControl>
-                      <FormControl>
-                        <Input
-                          type="text"
-                          {...field}
-                          placeholder="#8b5cf6"
-                          className="flex-1 font-mono"
-                        />
-                      </FormControl>
-                    </div>
-                    <FormDescription>
-                      Used for accents and hover states
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Secondary Color"
+                description="Used for accents and hover states"
               />
             </div>
           </div>
 
           {/* Email Settings */}
-          <FormField
+          <FormInput
             control={form.control}
             name="emailFromName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email Sender Name (Optional)</FormLabel>
-                <FormControl>
-                  <Input placeholder="Acme Design Team" {...field} />
-                </FormControl>
-                <FormDescription>
-                  How your name appears in emails sent to clients. Defaults to
-                  your organization name if left blank.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Email Sender Name (Optional)"
+            placeholder="Acme Design Team"
+            description="How your name appears in emails sent to clients. Defaults to your organization name if left blank."
           />
 
           {/* Submit Button */}
